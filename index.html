@@ -221,6 +221,10 @@ h3{font:700 clamp(20px,.6vw + 16.5px,23px)/1.22 var(--f-sans);letter-spacing:-.0
 .rating:hover{background:rgba(15,38,25,.62);border-color:#F7FAF8}
 .stars{display:inline-flex;gap:2px;color:#F2B84B}
 .stars .i{width:14px;height:14px}
+.star-part{position:relative;display:inline-block;width:14px;height:14px}
+.star-part .i{position:absolute;inset:0}
+.star-part .i:first-child{color:rgba(247,250,248,.34)}
+.star-part .i + .i{clip-path:inset(0 40% 0 0)}
 .band__note{position:absolute;z-index:3;left:max(var(--gutter),calc((100% - 1220px) / 2 + var(--gutter)));right:76px;bottom:18px;display:flex;align-items:flex-start;gap:8px;margin:0;font:500 12px/1.45 var(--f-sans);color:rgba(247,250,248,.88);text-align:left;text-shadow:0 1px 8px rgba(15,38,25,.85)}
 .band__note .i{width:16px;height:16px;margin-top:1px;color:var(--hi)}
 .band__pause{position:absolute;z-index:4;right:max(12px,calc((100% - 1220px) / 2 + var(--gutter) - 8px));bottom:12px;display:grid;place-items:center;width:40px;height:40px;padding:0;border-radius:12px;border:1px solid rgba(247,250,248,.5);background:rgba(15,38,25,.45);color:#F7FAF8;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background-color .2s,border-color .2s}
@@ -412,7 +416,9 @@ button.qb__f{cursor:pointer;transition:background-color .15s}
 .themes{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .themes li{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 13px;border-radius:9px;background:var(--frost);font:600 13.5px/1.2 var(--f-sans)}
 .themes li .i{width:16px;height:16px;color:var(--fir-2)}
-.big-q{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:18px;padding:30px 26px 34px;border-radius:var(--r);background:var(--fir);color:var(--on-dark);box-shadow:var(--shadow);overflow:hidden}
+.big-q{position:relative;display:flex;flex-direction:column;justify-content:center;gap:22px;padding:30px 26px 64px;border-radius:var(--r);background:var(--fir);color:var(--on-dark);box-shadow:var(--shadow);overflow:hidden}
+.big-q::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30px;background:var(--stitch) repeat-x 50% 50%/44px 26px,var(--white)}
+@media (min-width:900px){ .big-q{padding:36px 40px 70px} }
 .big-q p{position:relative;z-index:1;font:400 clamp(26px,1.8vw + 17px,40px)/1.18 var(--f-display)}
 .big-q footer{position:relative;z-index:1;font-size:14px;color:var(--mute-dark)}
 .big-q footer b{font:600 22px/1 var(--f-hand);color:var(--hi);margin-right:6px}
@@ -474,6 +480,12 @@ button.qb__f{cursor:pointer;transition:background-color .15s}
 .reserve__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,38,25,.5) 0%,rgba(31,74,51,.74) 42%,rgba(31,74,51,.9) 78%,var(--fir) 100%)}
 .reserve__cr{position:absolute;right:max(12px,calc((100% - 1220px) / 2 + var(--gutter)));bottom:12px;z-index:1;margin:0;font:500 11px/1.35 var(--f-sans);color:rgba(241,246,243,.7)}
 .reserve__cr a{color:inherit;text-decoration:underline;text-decoration-color:rgba(241,246,243,.35);text-underline-offset:2px}
+@media (max-width:760px){
+  .reserve__bg{bottom:auto;height:640px}
+  .reserve__bg img{object-position:30% 0;opacity:.78}
+  .reserve__bg::after{background:linear-gradient(180deg,rgba(15,38,25,.42) 0%,rgba(31,74,51,.6) 45%,rgba(31,74,51,.86) 78%,var(--fir) 100%)}
+  .reserve__cr{top:14px;bottom:auto}
+}
 .reserve__grid{display:grid;gap:34px;grid-template-areas:"head" "form" "side"}
 .reserve__head{grid-area:head}
 .formwrap{grid-area:form}
@@ -526,6 +538,12 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
 .seg span .i{width:18px;height:18px}
 .seg input:checked + span{background:var(--fir);border-color:var(--fir);color:var(--on-dark)}
 .seg input:focus-visible + span{outline:2px solid var(--red);outline-offset:2px}
+@media (max-width:699px){
+  .seg__row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .seg label{display:flex;min-width:0}
+  .seg span{flex:1;min-width:0;padding:6px 12px;line-height:1.2}
+  .seg--rooms label:first-child{grid-column:1/-1}
+}
 .form__err{font:700 13.5px/1.35 var(--f-sans);color:#A3261C}
 .form__err:empty{display:none}
 .form__fine{font-size:13px;text-align:center;color:var(--note)}
@@ -590,8 +608,8 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
 @media (max-width:360px){ .cal__t{font-size:18px} .cal__d{font-size:14px} }
 
 /* примітка прототипу для господині */
-.pnote{display:flex;align-items:flex-start;gap:10px;margin:0;padding:12px 14px;border-radius:12px;background:#FBEDE8;border:1px solid rgba(182,61,42,.28);font:500 13.5px/1.5 var(--f-sans);color:var(--moss)}
-.pnote .i{width:18px;height:18px;flex:none;margin-top:1px;color:var(--red)}
+.pnote{display:flex;align-items:flex-start;gap:10px;margin:0;padding:12px 14px;border-radius:12px;background:var(--snow);border:1px solid var(--seam);font:500 13.5px/1.5 var(--f-sans);color:var(--moss)}
+.pnote .i{width:18px;height:18px;flex:none;margin-top:1px;color:var(--fir-2)}
 .done .pnote{margin-top:22px}
 @keyframes sumflash{0%{background:rgba(182,61,42,.16)}100%{background:rgba(182,61,42,0)}}
 .cal__sum.is-flash{border-radius:8px;animation:sumflash 1.8s ease-out 1}
@@ -769,7 +787,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
         <p class="masthead__kicker">садиба в Яблуниці, Карпати</p>
         <h1 class="masthead__word" id="hero-title"><span class="sr">Садиба </span>Злагода</h1>
         <p class="masthead__line">П’ять окремих будинків серед смерек, 12&nbsp;км до Буковеля. Взимку лижі, влітку гори й водоспади.</p>
-        <a class="rating" href="#reviews"><span class="stars" aria-hidden="true"><svg class="i i--fill"><use href="#i-star"/></svg><svg class="i i--fill"><use href="#i-star"/></svg><svg class="i i--fill"><use href="#i-star"/></svg><svg class="i i--fill"><use href="#i-star"/></svg><svg class="i i--fill"><use href="#i-star"/></svg></span><span><b>4,6</b> · 133 відгуки в Google</span></a>
+        <a class="rating" href="#reviews"><span class="stars" aria-hidden="true"><svg class="i i--fill"><use href="#i-star"/></svg><svg class="i i--fill"><use href="#i-star"/></svg><svg class="i i--fill"><use href="#i-star"/></svg><svg class="i i--fill"><use href="#i-star"/></svg><span class="star-part"><svg class="i i--fill"><use href="#i-star"/></svg><svg class="i i--fill"><use href="#i-star"/></svg></span></span><span><b>4,6</b> · 133 відгуки в Google</span></a>
       </div>
       <form class="qb" id="qb" action="#bron" novalidate aria-label="Пошук вільних дат">
         <p class="qb__tab" aria-hidden="true">вільні дати</p>
@@ -809,7 +827,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
     <div class="head" data-rv>
       <p class="eyebrow">будинки</p>
       <h2 id="houses-title">П’ять будинків <em>для пари, родини чи компанії</em></h2>
-      <p class="lead">П’ять окремих будинків на одній території. У кожному свій вхід, кухня або кухонний куточок, санвузол, опалення і гаряча вода.</p>
+      <p class="lead">Кожен будинок з окремим входом, кухнею або кухонним куточком, санвузлом, опаленням і гарячою водою.</p>
       <p class="price-note"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg>Ціна залежить від будинку, дат і кількості гостей. Господиня назве її у відповідь на заявку.</p>
     </div>
     <div class="hgrid">
@@ -859,7 +877,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
         </div>
       </article>
       <article class="hcard" data-rv>
-        <button class="hcard__ph js-lb" type="button" data-cap="Будинок на 8 гостей"><img src="img/house-h8-day.jpg" width="1000" height="750" alt="Світлий двоповерховий будинок з балконом і критою терасою внизу, прапор України на щоглі, за будинком смереки" loading="lazy" decoding="async"><span class="cap">Будинок на 8 гостей</span></button>
+        <button class="hcard__ph js-lb" type="button" data-cap="Будинок на 8 гостей"><img src="img/house-h8-day.jpg" width="1000" height="750" alt="Світлий двоповерховий будинок з балконом і критою терасою внизу, прапор України на щоглі, за будинком смереки й ліс" loading="lazy" decoding="async"><span class="cap">Будинок на 8 гостей</span></button>
         <div class="hcard__body">
           <p class="hcard__who">великій родині або друзям</p>
           <h3>Будинок на 8 гостей</h3>
@@ -927,10 +945,11 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
         </div>
       </article>
       <article class="hcard hcard--group" data-rv>
+        <button class="hcard__ph js-lb" type="button" data-cap="Садиба восени"><img src="img/estate-autumn.jpg" width="1000" height="750" alt="Садиба згори восени: білий будинок з червоним балконом, дровітня, дерев’яний паркан і галявина, за ними осінній ліс і гори" loading="lazy" decoding="async"><span class="cap">Садиба восени</span></button>
         <div class="hcard__body">
           <p class="big">36<small>місць разом</small></p>
           <h3>Уся садиба для групи</h3>
-          <p>П’ять будинків на одній території. Садиба приймає дитячі табори, господарі організують дозвілля для дітей і екскурсії.</p>
+          <p>Можна взяти всі будинки разом. Садиба приймає дитячі табори, господарі організують дозвілля для дітей і екскурсії.</p>
           <ul class="feat">
             <li><svg class="i" aria-hidden="true"><use href="#i-users"/></svg>Табори, групи й великі компанії</li>
             <li><svg class="i" aria-hidden="true"><use href="#i-flame"/></svg>Альтанки з мангалом і галявина для спільних вечорів</li>
@@ -960,15 +979,15 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
       <ul class="perks">
         <li><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-door"/></svg></span><div><h3>Окремий будинок</h3><p>Свій вхід, своя кухня і санвузол. «Відпочивали сім’єю в окремому будиночку», пише гостя Ольга.</p></div></li>
         <li><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-car"/></svg></span><div><h3>Паркування на території</h3><p>Безкоштовне, машина стоїть біля будинків.</p></div></li>
-        <li><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-fir"/></svg></span><div><h3>Тиша, ліс і гори</h3><p>Смереки довкола, а з пагорба на садибі видно гори й полонини.</p></div></li>
-        <li><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-water"/></svg></span><div><h3>Басейн просто неба</h3><p>Басейн з дерев’яним настилом прямо серед смерек.</p></div></li>
+        <li><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-fir"/></svg></span><div><h3>Тиша, ліс і гори</h3><p>Ліс поруч, а з пагорба на садибі видно гори й полонини.</p></div></li>
+        <li><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-water"/></svg></span><div><h3>Басейн просто неба</h3><p>Дерев’яний настил і смереки довкола.</p></div></li>
         <li><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-chan"/></svg></span><div><h3>Чан і лазня на дровах</h3><p>Їх замовляють окремо, за окрему плату. Деталі уточнюйте, коли бронюєте.</p></div></li>
         <li><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-swing"/></svg></span><div><h3>Дітям є де бігати</h3><p>Гойдалка, м’ячі, бадмінтон і велика галявина. Альтанки з мангалом для дорослих.</p></div></li>
       </ul>
     </div>
     <div data-rv>
       <div class="mosaic">
-        <button class="ph-btn js-lb m1" type="button" data-cap="Вид від котеджу на пагорбі"><img src="img/view-veranda.jpg" width="1400" height="1050" alt="Вид згори на садибу: зелена галявина, дерев’яний паркан, будинки, за ними ліс і гори" loading="lazy" decoding="async"><span class="cap">Вид від котеджу на пагорбі</span></button>
+        <button class="ph-btn js-lb m1" type="button" data-cap="Вид від котеджу на пагорбі"><img src="img/view-veranda.jpg" width="1200" height="900" alt="Вид згори на садибу: зелена галявина, дерев’яний паркан, будинки, за ними ліс і гори" loading="lazy" decoding="async"><span class="cap">Вид від котеджу на пагорбі</span></button>
         <button class="ph-btn js-lb" type="button" data-cap="Взимку на подвір’ї"><img src="img/swing-winter.jpg" width="1000" height="750" alt="Гойдалка з ковдрою, ялинка з вогниками й альтанка на засніженому подвір’ї ввечері" loading="lazy" decoding="async"><span class="cap">Взимку на подвір’ї</span></button>
         <button class="ph-btn js-lb" type="button" data-cap="Чан під навісом, замовляють окремо"><img src="img/chan-day.jpg" width="1000" height="750" alt="Восьмикутний дерев’яний чан під навісом з різьбленими перилами, за ним смерековий ліс" loading="lazy" decoding="async"><span class="cap">Чан під навісом, замовляють окремо</span></button>
         <button class="ph-btn js-lb m-wide" type="button" data-cap="Краєвид восени"><img src="img/autumn-view.jpg" width="1000" height="750" alt="Осінній краєвид: село в долині, жовті дерева, смерековий ліс і гора під синім небом" loading="lazy" decoding="async"><span class="cap">Краєвид восени</span></button>
@@ -1006,13 +1025,13 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
         <figure class="season__ph">
           <img src="img/season-waterfall.jpg" width="900" height="900" alt="Водоспад Женецький Гук стікає по темній скелі серед зелені й смерек" loading="lazy" decoding="async">
           <p class="season__tag"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Поруч: Женецький Гук</p>
-          <figure class="season__own"><img src="img/inset-summer.jpg" width="360" height="360" alt="Басейн садиби з дерев’яним настилом серед смерек" loading="lazy" decoding="async"><figcaption>басейн на садибі</figcaption></figure>
+          <figure class="season__own"><img src="img/inset-summer-day.jpg" width="360" height="360" alt="Котедж з верандою на зеленому пагорбі садиби влітку" loading="lazy" decoding="async"><figcaption>на садибі влітку</figcaption></figure>
           <figcaption class="season__cr">На фото Женецький Гук. Фото: <a href="https://commons.wikimedia.org/wiki/File:Zhenetskyi_Huk_2016_G1.jpg" target="_blank" rel="noopener">George Chernilevsky</a>, CC BY-SA 4.0</figcaption>
         </figure>
         <div class="season__body">
           <p class="season__k"><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg>літо</p>
           <h3>Походи й водоспади</h3>
-          <p>Походи в гори й екскурсії. До гори Хом’як, пише гостя, 10-15 хвилин машиною. До Женецького Гуку близько 15 км, останню частину шляху стежкою, до Пробою в Яремчі близько 30 км. А на садибі басейн просто неба.</p>
+          <p>Гостя пише про <q>ліси, полонини, дзвін коров’ячих дзвоників</q>, а до гори Хом’як, за її словами, 10-15 хвилин машиною. До Женецького Гуку близько 15 км, останню частину шляху стежкою, до Пробою в Яремчі близько 30 км. А на садибі басейн просто неба.</p>
         </div>
       </article>
       <article class="season" data-rv>
@@ -1025,7 +1044,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
         <div class="season__body">
           <p class="season__k"><svg class="i" aria-hidden="true"><use href="#i-leaf"/></svg>весна й осінь</p>
           <h3>Ліс, гриби і джипінг</h3>
-          <p>Восени смерековий ліс, гриби й ягоди, навесні перші квіти на галявинах. У гори можна поїхати на УАЗі, про поїздку домовляйтеся з господарями.</p>
+          <p>Восени гриби й ягоди в смерековому лісі. У гори возять на УАЗі: <q>Дуже сподобалось катання на уазиках… Він розповів багато цікавого про місцеві гори, звичаї</q>, пише гостя. Про поїздку домовляйтеся з господарями.</p>
         </div>
       </article>
     </div>
@@ -1062,7 +1081,6 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
           <li><svg class="i" aria-hidden="true"><use href="#i-users"/></svg>привітні господарі</li>
           <li><svg class="i" aria-hidden="true"><use href="#i-swing"/></svg>з дітьми</li>
           <li><svg class="i" aria-hidden="true"><use href="#i-fir"/></svg>тиша</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-chan"/></svg>чани й сауна</li>
         </ul>
       </div>
       <blockquote class="big-q">
@@ -1096,9 +1114,9 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
     <div class="place__grid">
       <div class="place__card" data-rv>
         <h3>Що поруч</h3>
-        <p class="lead">Садиба за 200 метрів від траси і центру села. Останні 200 метрів до будинків ґрунтова дорога.</p>
+        <p class="lead">Від траси й центру села 200 метрів, останній відрізок ґрунтовою дорогою.</p>
         <ul class="near">
-          <li><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg><span>Кафе й магазин</span><b>200 м</b></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg><span>Магазин у центрі села<small>так пише гостя Марина</small></span><b>5-7 хв пішки</b></li>
           <li><svg class="i" aria-hidden="true"><use href="#i-lift"/></svg><span>Найближчий витяг<small>у Яблуниці</small></span><b>300 м</b></li>
           <li><svg class="i" aria-hidden="true"><use href="#i-snow"/></svg><span>Буковель<small>лижний курорт</small></span><b>12 км</b></li>
           <li><svg class="i" aria-hidden="true"><use href="#i-water"/></svg><span>Водоспад Женецький Гук<small>біля Татарова, частину шляху стежкою</small></span><b>≈15 км</b></li>
@@ -1118,7 +1136,6 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
         <div class="way__list">
           <p><svg class="i" aria-hidden="true"><use href="#i-car"/></svg><span><b>Машиною.</b> З Івано-Франківська трасою Н-09 у бік Рахова до Яблуниці. Паркування безкоштовне, на території.</span></p>
           <p><svg class="i" aria-hidden="true"><use href="#i-bus"/></svg><span><b>Автобусом</b> з Івано-Франківська в бік Рахова, вихід у центрі Яблуниці. Про зустріч можна домовитися з господарями.</span></p>
-          <p><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg><span><b>Пішки до магазину.</b> «До магазину (центральної дороги) 5-7 хвилин пішки», пише гостя Марина.</span></p>
           <p><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><span><b>Трансфер.</b> За окрему плату, домовтеся заздалегідь.</span></p>
         </div>
       </div>
@@ -1139,11 +1156,11 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
       </details>
       <details>
         <summary>Які є будинки і на скільки людей?<span class="pm" aria-hidden="true"><svg class="i"><use href="#i-plus"/></svg></span></summary>
-        <div class="ans"><p>П’ять окремих будинків: котедж на 4 гостей, два котеджі на 6 (один із сауною), будинок на 8 і будинок господарів на 12. Разом 36 місць, садибу можна взяти й для групи.</p></div>
+        <div class="ans"><p>Котедж на 4 гостей, два котеджі на 6 (один із сауною), будинок на 8 і будинок господарів на 12. Разом 36 місць, садибу можна взяти й для групи.</p></div>
       </details>
       <details>
         <summary>Чи тепло в будинках взимку?<span class="pm" aria-hidden="true"><svg class="i"><use href="#i-plus"/></svg></span></summary>
-        <div class="ans"><p>У чотирьох будинках автономне водяне опалення, у котеджі із сауною електричні конвектори. Гості пишуть: «опалення гарне, дуже тепло було» і «гарні, теплі та чисті кімнати».</p><p>Якщо їдете взимку, напишіть про це в заявці: господиня порадить, який будинок краще взяти на ваші дати і як його гріють у мороз.</p></div>
+        <div class="ans"><p>У чотирьох будинках автономне водяне опалення, у котеджі із сауною електричні конвектори. Гостя Марина пише: «опалення гарне, дуже тепло було».</p><p>Уточніть це, коли бронюєте: господиня порадить, який будинок краще взяти взимку і як його гріють у мороз.</p></div>
       </details>
       <details>
         <summary>Чи проїде машина взимку?<span class="pm" aria-hidden="true"><svg class="i"><use href="#i-plus"/></svg></span></summary>
@@ -1163,7 +1180,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
       </details>
       <details>
         <summary>Що є поруч?<span class="pm" aria-hidden="true"><svg class="i"><use href="#i-plus"/></svg></span></summary>
-        <div class="ans"><p>Кафе й магазин за 200 метрів, найближчий витяг за 300 метрів, Буковель за 12 км. До гори Хом’як, пише гостя, 10-15 хвилин машиною. Женецький Гук біля Татарова близько 15 км, останню частину шляху стежкою. Водоспад Пробій у Яремчі близько 30 км машиною.</p></div>
+        <div class="ans"><p>Магазин у центрі села: гості пишуть, що до нього 5-7 хвилин пішки. Найближчий витяг за 300 метрів, Буковель за 12 км. До гори Хом’як, пише гостя, 10-15 хвилин машиною. Женецький Гук біля Татарова близько 15 км, останню частину шляху стежкою. Водоспад Пробій у Яремчі близько 30 км машиною.</p></div>
       </details>
       <details>
         <summary>Чи є харчування?<span class="pm" aria-hidden="true"><svg class="i"><use href="#i-plus"/></svg></span></summary>
@@ -1208,7 +1225,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
     <div class="reserve__head" data-rv>
       <p class="eyebrow">бронювання напряму</p>
       <h2 id="book-title">Оберіть дати, <em class="hot">господиня відповість</em></h2>
-      <p class="lead">Заявка одразу прийде господині. Вона підтвердить ціну і зв’яжеться з вами так, як вам зручно.</p>
+      <p class="lead">Заявка одразу прийде господині. Вона назве ціну на ваші дати і зв’яжеться з вами так, як вам зручно.</p>
       <ol class="steps">
         <li><p>Оберіть будинок і вільні дати в календарі.</p></li>
         <li><p>Вкажіть, як з вами зв’язатися: дзвінок, Viber, Telegram чи WhatsApp.</p></li>
@@ -1218,7 +1235,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
     <div class="formwrap" data-rv>
       <div class="formcard">
         <form class="form" id="bookForm" method="post" action="#" novalidate>
-          <fieldset class="seg">
+          <fieldset class="seg seg--rooms">
             <legend>Що бронюєте</legend>
             <div class="seg__row">
               <label><input type="radio" name="room" value="any" checked><span>Будь-який вільний</span></label>
@@ -2111,7 +2128,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
     }
     function contactOk(){
       var val = ct.value.trim(), digits = val.replace(/\D/g, '');
-      if (viaVal() === 'Telegram') return /^@?[A-Za-z0-9_]{4,}$/.test(val) || digits.length >= 9;
+      if (viaVal() === 'Telegram') return /^@?[A-Za-z0-9_]{5,32}$/.test(val) || digits.length >= 9;
       return digits.length >= 9;
     }
     function showDone(){
